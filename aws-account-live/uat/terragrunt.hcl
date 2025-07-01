@@ -7,6 +7,10 @@ locals {
   env            = "uat"
 }
 
+terraform {
+  source = "../../modules/app"
+}
+
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite"

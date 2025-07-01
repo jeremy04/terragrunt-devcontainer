@@ -7,6 +7,10 @@ locals {
   env            = "prd"
 }
 
+terraform {
+  source = "../../modules/app"
+}
+
 generate "provider" {
   path      = "provider.tf"
   if_exists = "overwrite"
