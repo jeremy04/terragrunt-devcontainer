@@ -1,0 +1,10 @@
+{
+  "name": "Terraform and Terragrunt with version managers",
+  "id": "terraform",
+  "version": "1.0.0",
+  "description": "Installs tfenv and tgenv for managing Terraform and Terragrunt versions",
+  "options": {},
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ]
+}

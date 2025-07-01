@@ -20,6 +20,10 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 alias awslocal='aws --endpoint-url=http://localstack:4566'
+
+# tfenv and tgenv paths
+export PATH="$HOME/.tfenv/bin:$HOME/.tgenv/bin:$PATH"
+
 # --- dotfiles-codespace-marker ---
 EOF
   echo "▶ Appended shell customizations to ~/.bashrc"
