@@ -14,6 +14,9 @@ if [[ ! -d "$HOME/.tgenv" ]]; then
   git clone --depth=1 https://github.com/cunymatthieu/tgenv.git ~/.tgenv
 fi
 
+# Export PATH to make tools available
+export PATH="$HOME/.tfenv/bin:$HOME/.tgenv/bin:$PATH"
+
 # Install versions from .terraform-version and .terragrunt-version if they exist
 if [ -f "/workspace/.terraform-version" ]; then
     echo "Installing Terraform version from .terraform-version..."
