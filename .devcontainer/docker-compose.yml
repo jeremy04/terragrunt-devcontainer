@@ -1,0 +1,51 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    depends_on:
+      - redis
+      - postgres
+    tty: true
+    stdin_open: true
+    env_file:
+      - .env.devcontainer
+    environment:
+      - AWS_ENDPOINT_URL=http://localstack:4566
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,ssm,lambda
+    volumes:
+      - "./init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"
+    profiles:
+      - aws
+ 
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6381:6379"
+
+  postgres:
+    image: postgres:16-alpine
+    env_file:
+      - .env.devcontainer
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
