@@ -8,14 +8,31 @@ locals {
 }
 
 terraform {
-  source = "../../modules/app"
+  source = "./terraform"
 }
 
 inputs = {
+  # App inputs
   public_subnets = ["subnet-12345", "subnet-67890"]
   alb_sg         = "sg-alb123"
   vpc_id         = "vpc-12345"
   use_localstack = true
+  
+  # RDS inputs
+  db_sg           = "sg-db123"
+  private_subnets = ["subnet-private1", "subnet-private2"]
+  kms_key_id      = "alias/aws/rds"
+  
+  # Redis inputs
+  redis_subnet_group = "redis-subnet-group"
+  redis_sg          = "sg-redis123"
+  
+  # Route53 inputs
+  zone_id     = "Z123456789"
+  namespace   = "dev"
+  domain      = "example.com"
+  lb_dns_name = "app-alb-123456789.us-east-1.elb.amazonaws.com"
+  lb_zone_id  = "Z35SXDOTRQ7X7K"
 }
 
 generate "provider" {
