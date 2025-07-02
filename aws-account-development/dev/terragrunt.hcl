@@ -8,7 +8,7 @@ locals {
 }
 
 terraform {
-  source = "."
+  source = "../../modules/app"
 }
 
 inputs = {

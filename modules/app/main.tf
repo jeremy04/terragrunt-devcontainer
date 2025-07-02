@@ -109,3 +109,31 @@ resource "aws_iam_role_policy_attachment" "ecs_execution" {
   role       = aws_iam_role.ecs_execution.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
+
+# RDS Module
+module "rds" {
+  source = "../rds"
+  
+  db_sg           = var.db_sg
+  private_subnets = var.private_subnets
+  kms_key_id      = var.kms_key_id
+}
+
+# Redis Module
+module "redis" {
+  source = "../redis"
+  
+  redis_subnet_group = var.redis_subnet_group
+  redis_sg          = var.redis_sg
+}
+
+# Route53 Module
+module "route53" {
+  source = "../route53"
+  
+  zone_id     = var.zone_id
+  namespace   = var.namespace
+  domain      = var.domain
+  lb_dns_name = var.lb_dns_name
+  lb_zone_id  = var.lb_zone_id
+}
