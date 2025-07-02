@@ -11,7 +11,7 @@ fi
 
 # Install tgenv (Terragrunt version manager)  
 if [[ ! -d "$HOME/.tgenv" ]]; then
-  git clone --depth=1 https://github.com/cunymatthieu/tgenv.git ~/.tgenv
+  git clone --depth=1 https://github.com/tgenv/tgenv.git ~/.tgenv
 fi
 
 # Export PATH to make tools available
