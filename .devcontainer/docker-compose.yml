@@ -23,7 +23,7 @@ services:
     ports:
       - "4566:4566"
     environment:
-      - SERVICES=s3,ssm,lambda
+      - SERVICES=s3,ssm,lambda,iam,sts,ec2,ecs,rds,route53,cloudformation,cloudwatch,dynamodb,secretsmanager,ses,sns,sqs,apigateway,apigatewayv2
     volumes:
       - "./init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh"
     profiles:
