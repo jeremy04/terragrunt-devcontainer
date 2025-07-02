@@ -1,5 +1,6 @@
 
 module "app_alb" {
+  count = var.use_localstack ? 0 : 1
   source          = "terraform-aws-modules/alb/aws"
   name            = "app-alb"
   subnets         = var.public_subnets
@@ -8,10 +9,12 @@ module "app_alb" {
 }
 
 resource "aws_ecs_cluster" "main" {
+  count = var.use_localstack ? 0 : 1
   name = "rails-api"
 }
 
 resource "aws_ecs_task_definition" "rails_app" {
+  count = var.use_localstack ? 0 : 1
   family                   = "rails-api"
   requires_compatibilities = ["FARGATE"]
   network_mode            = "awsvpc"
@@ -38,6 +41,7 @@ resource "aws_ecs_task_definition" "rails_app" {
 }
 
 resource "aws_ecs_service" "rails_app" {
+  count = var.use_localstack ? 0 : 1
   name            = "rails-api"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.rails_app.arn
@@ -51,6 +55,7 @@ resource "aws_ecs_service" "rails_app" {
 }
 
 resource "aws_ecs_task_definition" "sidekiq" {
+  count = var.use_localstack ? 0 : 1
   family                   = "sidekiq"
   requires_compatibilities = ["FARGATE"]
   network_mode            = "awsvpc"
@@ -70,6 +75,7 @@ resource "aws_ecs_task_definition" "sidekiq" {
 }
 
 resource "aws_ecs_service" "sidekiq" {
+  count = var.use_localstack ? 0 : 1
   name            = "sidekiq"
   cluster         = aws_ecs_cluster.main.id
   task_definition = aws_ecs_task_definition.sidekiq.arn

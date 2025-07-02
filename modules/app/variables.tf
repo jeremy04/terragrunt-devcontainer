@@ -12,3 +12,9 @@ variable "vpc_id" {
   description = "VPC ID"
   type        = string
 }
+
+variable "use_localstack" {
+  description = "Use LocalStack-compatible resources only"
+  type        = bool
+  default     = false
+}

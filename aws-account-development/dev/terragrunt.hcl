@@ -15,6 +15,7 @@ inputs = {
   public_subnets = ["subnet-12345", "subnet-67890"]
   alb_sg         = "sg-alb123"
   vpc_id         = "vpc-12345"
+  use_localstack = true
 }
 
 generate "provider" {
