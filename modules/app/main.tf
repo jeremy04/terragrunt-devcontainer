@@ -43,8 +43,8 @@ resource "aws_ecs_task_definition" "rails_app" {
 resource "aws_ecs_service" "rails_app" {
   count = var.use_localstack ? 0 : 1
   name            = "rails-api"
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.rails_app.arn
+  cluster         = aws_ecs_cluster.main[0].id
+  task_definition = aws_ecs_task_definition.rails_app[0].arn
   desired_count   = 2
   launch_type     = "FARGATE"
 
@@ -77,8 +77,8 @@ resource "aws_ecs_task_definition" "sidekiq" {
 resource "aws_ecs_service" "sidekiq" {
   count = var.use_localstack ? 0 : 1
   name            = "sidekiq"
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.sidekiq.arn
+  cluster         = aws_ecs_cluster.main[0].id
+  task_definition = aws_ecs_task_definition.sidekiq[0].arn
   desired_count   = 1
   launch_type     = "FARGATE"
 
