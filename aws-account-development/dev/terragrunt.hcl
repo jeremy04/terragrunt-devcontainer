@@ -8,7 +8,7 @@ locals {
 }
 
 terraform {
-  source = "./terraform"
+  source = "."
 }
 
 inputs = {

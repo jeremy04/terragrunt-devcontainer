@@ -1,5 +1,5 @@
 module "app" {
-  source = "../../../modules/app"
+  source = "../../modules/app"
   
   public_subnets = var.public_subnets
   alb_sg         = var.alb_sg
@@ -8,7 +8,7 @@ module "app" {
 }
 
 module "rds" {
-  source = "../../../modules/rds"
+  source = "../../modules/rds"
   
   db_sg           = var.db_sg
   private_subnets = var.private_subnets
@@ -16,14 +16,14 @@ module "rds" {
 }
 
 module "redis" {
-  source = "../../../modules/redis"
+  source = "../../modules/redis"
   
   redis_subnet_group = var.redis_subnet_group
   redis_sg          = var.redis_sg
 }
 
 module "route53" {
-  source = "../../../modules/route53"
+  source = "../../modules/route53"
   
   zone_id     = var.zone_id
   namespace   = var.namespace
