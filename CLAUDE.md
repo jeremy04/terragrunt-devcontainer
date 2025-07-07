@@ -138,18 +138,23 @@ module "rds" {
   # Missing family parameter
 }
 
-# ✅ Fixed configuration  
+# ✅ Current configuration (PostgreSQL 17.5)
 module "rds" {
   source = "terraform-aws-modules/rds/aws"
   
   engine         = "postgres"
-  engine_version = "14.9"
-  family         = "postgres14"  # Required parameter
+  engine_version = "17.5"        # Latest PostgreSQL version
+  family         = "postgres17"  # Required parameter family
   # create_random_password removed
   
   manage_master_user_password   = true
   master_user_secret_kms_key_id = var.kms_key_id
 }
+
+# 📝 PostgreSQL Version History
+# - Started with: PostgreSQL 14.9 (family: postgres14)  
+# - Upgraded to: PostgreSQL 17.5 (family: postgres17) - 2025-07-07
+#   AWS RDS supports PostgreSQL 17.5 as latest minor version
 ```
 
 #### Redis Module

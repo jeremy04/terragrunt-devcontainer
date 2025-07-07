@@ -4,7 +4,7 @@ module "rds" {
 
   identifier        = "app-db"
   engine            = "postgres"
-  engine_version    = "14.9"
+  engine_version    = "17.5"
   instance_class    = "db.t3.medium"
   allocated_storage = 20
 
@@ -20,5 +20,5 @@ module "rds" {
   manage_master_user_password   = true
   master_user_secret_kms_key_id = var.kms_key_id
   
-  family = "postgres14"
+  family = "postgres17"
 }
