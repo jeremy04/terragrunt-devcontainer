@@ -31,6 +31,7 @@ terragrunt plan  # Verify plan generates successfully
 - ✅ **Commit freely** when gold standard passes (`terragrunt init` + `terragrunt plan` succeed)
 - ✅ **Push branches** and **edit PRs** without asking permission
 - ✅ **Make atomic commits** - each commit must be cohesive and self-contained
+- ✅ **Use conventional commit format** - follow conventional commit standard
 - ✅ **Ensure every commit works** - never commit broken/partial changes
 - ❌ **Never commit** if gold standard fails - always fix issues first
 
@@ -39,6 +40,18 @@ terragrunt plan  # Verify plan generates successfully
 - Related changes bundled together (e.g., parameter update + documentation)
 - Can be safely reverted without breaking other functionality
 - Gold standard must pass before any commit
+
+**Conventional Commit Format**:
+```
+<type>(<scope>): <description>
+
+<body>
+
+<footer>
+```
+- **Types**: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `upgrade`
+- **Scope**: optional, e.g., `rds`, `redis`, `terragrunt`, `modules`
+- **Description**: imperative mood, lowercase, no period
 
 ## 🛠️ How to Create a Pull Request in Codespace
 
@@ -283,10 +296,10 @@ When `terragrunt plan` succeeds, it should show ~8 resources:
 4. **Read error messages carefully**: Usually point to exact issue
 5. **Test incrementally**: Make small changes and test frequently
 
-## 📝 Commit Message Template
+## 📝 Commit Message Template (Conventional Commits)
 
 ```
-Brief description of changes
+<type>(<scope>): <description>
 
 Detailed explanation of what was changed and why.
 
@@ -297,6 +310,27 @@ Detailed explanation of what was changed and why.
 🤖 Generated with [Claude Code](https://claude.ai/code)
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+### Conventional Commit Examples
+```bash
+# Feature addition
+feat(rds): add PostgreSQL 17 support with parameter family
+
+# Bug fix
+fix(redis): replace deprecated replication_group_description parameter
+
+# Documentation
+docs(claude): add autonomous operation guidelines for Codespace
+
+# Infrastructure upgrade
+upgrade(rds): PostgreSQL 14.9 to 17.5 with family compatibility
+
+# Configuration change
+chore(terragrunt): implement dynamic module paths with include_in_copy
+
+# Refactoring
+refactor(modules): standardize relative path references
 ```
 
 ## 🤖 Claude Codespace Guidelines
