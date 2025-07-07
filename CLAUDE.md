@@ -97,6 +97,41 @@ EOF
 
 ## 🏗️ Project Architecture
 
+### Development Environment Setup
+The project includes automatic setup of development tools via `/workspace/install.sh`:
+
+#### Claude Code CLI Installation
+```bash
+# Automatic installation in install.sh
+npm install -g @anthropic-ai/claude-code
+```
+
+**Features**:
+- ✅ **One-time installation** - Automatically installs Claude Code CLI if not present
+- ✅ **Version detection** - Skips installation if already present
+- ✅ **Update handling** - Updates to official version if different CLI is detected
+- ✅ **Status reporting** - Shows current version when already installed
+
+**Usage**:
+```bash
+# Run setup script to ensure Claude Code is available
+bash /workspace/install.sh
+
+# Verify installation
+claude --version
+# Expected output: X.X.XX (Claude Code)
+
+# Use Claude Code for AI-powered development
+claude "help me debug this terraform error"
+```
+
+**What install.sh provides**:
+- Shell customizations (git branch in prompt, history settings)
+- LocalStack AWS aliases (`awslocal`)
+- Terraform/Terragrunt environment paths
+- Dummy AWS credentials for LocalStack development
+- **Claude Code CLI** for AI-powered development assistance
+
 ### Directory Structure
 ```
 /workspace/

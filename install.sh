@@ -51,3 +51,20 @@ EOF
 
   echo "✔️  Created dummy AWS profile in $AWS_DIR"
 fi
+
+# -----------------------------------------------------------------------------
+# Ensure Claude Code CLI is installed globally
+# Provides the 'claude' command for AI-powered development
+# -----------------------------------------------------------------------------
+if ! command -v claude >/dev/null 2>&1; then
+  echo "▶ Installing Claude Code CLI..."
+  npm install -g @anthropic-ai/claude-code
+  echo "✔️  Claude Code CLI installed successfully"
+elif ! claude --version 2>/dev/null | grep -q "Claude Code"; then
+  echo "▶ Updating to official Claude Code CLI..."
+  npm install -g @anthropic-ai/claude-code
+  echo "✔️  Claude Code CLI updated successfully"
+else
+  CLAUDE_VERSION=$(claude --version 2>/dev/null | head -n1)
+  echo "✔️  Claude Code CLI already installed: $CLAUDE_VERSION"
+fi
