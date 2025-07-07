@@ -4,6 +4,7 @@ module "rds" {
 
   identifier        = "app-db"
   engine            = "postgres"
+  engine_version    = "14.9"
   instance_class    = "db.t3.medium"
   allocated_storage = 20
 
@@ -16,7 +17,8 @@ module "rds" {
 
   create_db_subnet_group        = true
   create_monitoring_role        = true
-  create_random_password        = false
   manage_master_user_password   = true
   master_user_secret_kms_key_id = var.kms_key_id
+  
+  family = "postgres14"
 }

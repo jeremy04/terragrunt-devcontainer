@@ -8,7 +8,14 @@ locals {
 }
 
 terraform {
-  source = "../../modules/app"
+  source = "${get_terragrunt_dir()}/../../modules//app"
+  
+  # Include all modules in the copy
+  include_in_copy = [
+    "${get_terragrunt_dir()}/../../modules/rds",
+    "${get_terragrunt_dir()}/../../modules/redis", 
+    "${get_terragrunt_dir()}/../../modules/route53"
+  ]
 }
 
 inputs = {
