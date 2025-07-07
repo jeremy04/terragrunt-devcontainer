@@ -26,6 +26,20 @@ terragrunt init  # Re-initialize if module sources changed
 terragrunt plan  # Verify plan generates successfully
 ```
 
+### 4. Commit Standards (FOR CLAUDE IN CODESPACE)
+**AUTONOMOUS OPERATION**: In GitHub Codespace, Claude should:
+- ✅ **Commit freely** when gold standard passes (`terragrunt init` + `terragrunt plan` succeed)
+- ✅ **Push branches** and **edit PRs** without asking permission
+- ✅ **Make atomic commits** - each commit must be cohesive and self-contained
+- ✅ **Ensure every commit works** - never commit broken/partial changes
+- ❌ **Never commit** if gold standard fails - always fix issues first
+
+**Atomic Commit Rules**:
+- Each commit represents a complete, working change
+- Related changes bundled together (e.g., parameter update + documentation)
+- Can be safely reverted without breaking other functionality
+- Gold standard must pass before any commit
+
 ## 🛠️ How to Create a Pull Request in Codespace
 
 ### Prerequisites
@@ -214,9 +228,10 @@ cd /workspace/aws-account-development/dev && terragrunt plan
 
 ### 3. Git Workflow
 - Work on feature branches
-- Commit frequently with descriptive messages
+- **Commit autonomously** when gold standard passes (in Codespace)
 - Always test before and after changes
-- Use GitHub CLI for PR creation
+- Use GitHub CLI for PR creation and updates
+- Push branches without asking permission (in Codespace)
 
 ### 4. Testing Protocol
 ```bash
@@ -277,11 +292,39 @@ Detailed explanation of what was changed and why.
 
 ✅ Tested: terragrunt init and plan succeed
 ✅ All modules resolve correctly
+✅ Atomic commit - cohesive and self-contained
 
 🤖 Generated with [Claude Code](https://claude.ai/code)
 
 Co-Authored-By: Claude <noreply@anthropic.com>
 ```
+
+## 🤖 Claude Codespace Guidelines
+
+### Autonomous Operation Rules
+When working in GitHub Codespace, Claude should operate with autonomy:
+
+1. **Gold Standard First**: Always validate with `terragrunt init` and `terragrunt plan`
+2. **Atomic Commits**: Bundle related changes together in single commits
+3. **Commit Freely**: No need to ask permission when tests pass
+4. **Push Branches**: Update remote branches automatically
+5. **Edit PRs**: Update PR descriptions and manage pull requests
+6. **Never Break**: Only commit when everything works perfectly
+
+### Commit Decision Flow
+```
+Changes Made → Run Gold Standard → Pass? → Commit & Push
+                                 ↓
+                               Fail → Fix Issues → Retry
+```
+
+### What Constitutes an Atomic Commit
+- ✅ Feature addition with tests and documentation
+- ✅ Bug fix with related parameter updates
+- ✅ Version upgrade with compatibility changes
+- ✅ Refactoring with updated configurations
+- ❌ Partial implementations that don't work
+- ❌ Mixed unrelated changes
 
 ---
 
