@@ -130,18 +130,6 @@ npm install -g @anthropic-ai/claude-code
 - ✅ **Update handling** - Updates to official version if different CLI is detected
 - ✅ **Status reporting** - Shows current version when already installed
 
-**Usage**:
-```bash
-# Run setup script to ensure Claude Code is available
-bash /workspace/install.sh
-
-# Verify installation
-claude --version
-# Expected output: X.X.XX (Claude Code)
-
-# Use Claude Code for AI-powered development
-claude "help me debug this terraform error"
-```
 
 **What install.sh provides**:
 - Shell customizations (git branch in prompt, history settings)
