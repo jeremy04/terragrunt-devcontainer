@@ -100,6 +100,24 @@ EOF
 ### Development Environment Setup
 The project includes automatic setup of development tools via `/workspace/install.sh`:
 
+#### Version Management
+- **Terraform**: `latest:^1.12` (managed by tfenv)
+- **Terragrunt**: `0.69.7` (managed by tgenv)
+- Version files: `.terraform-version`, `.terragrunt-version`
+
+#### LocalStack Services
+The dev container includes comprehensive AWS service emulation:
+```yaml
+services: s3,ssm,lambda,iam,sts,ec2,ecs,rds,route53,cloudformation,
+         cloudwatch,dynamodb,secretsmanager,ses,sns,sqs,apigateway,apigatewayv2
+endpoint: http://localstack:4566
+```
+
+#### Development Services
+- **Redis**: localhost:6381 (for local development)
+- **PostgreSQL**: localhost:5432 (for local development)
+- **LocalStack**: localhost:4566 (AWS services emulation)
+
 #### Claude Code CLI Installation
 ```bash
 # Automatic installation in install.sh
@@ -128,21 +146,43 @@ claude "help me debug this terraform error"
 **What install.sh provides**:
 - Shell customizations (git branch in prompt, history settings)
 - LocalStack AWS aliases (`awslocal`)
-- Terraform/Terragrunt environment paths
+- Terraform/Terragrunt environment paths (tfenv/tgenv)
 - Dummy AWS credentials for LocalStack development
 - **Claude Code CLI** for AI-powered development assistance
+
+#### Environment Variables
+```bash
+# LocalStack configuration
+export AWS_ENDPOINT_URL=http://localstack:4566
+export AWS_ACCESS_KEY_ID=test
+export AWS_SECRET_ACCESS_KEY=test
+export AWS_DEFAULT_REGION=us-east-1
+
+# Development services
+export REDIS_URL=redis://redis:6379
+```
 
 ### Directory Structure
 ```
 /workspace/
 ├── aws-account-development/
-│   └── dev/                    # Main working directory
-│       └── terragrunt.hcl     # Terragrunt configuration
-└── modules/
-    ├── app/                   # Main application module
-    ├── rds/                   # RDS database module
-    ├── redis/                 # Redis cache module
-    └── route53/               # DNS module
+│   ├── dev/                    # Main working directory
+│   │   └── terragrunt.hcl     # Terragrunt configuration
+│   ├── dev-aws/               # Alternative dev environment
+│   └── shared.hcl             # Shared dev account config
+├── aws-account-live/
+│   ├── uat/                   # UAT environment
+│   ├── prd/                   # Production environment
+│   └── shared.hcl             # Shared live account config
+├── modules/
+│   ├── app/                   # Main application module
+│   ├── rds/                   # RDS database module
+│   ├── redis/                 # Redis cache module
+│   └── route53/               # DNS module
+├── .devcontainer/             # Dev container configuration
+├── .terraform-version         # Terraform version spec
+├── .terragrunt-version        # Terragrunt version spec
+└── install.sh                 # Environment setup script
 ```
 
 ### Module Dependencies
@@ -318,10 +358,12 @@ terragrunt plan  # Should succeed without errors
 
 When `terragrunt plan` succeeds, it should show ~8 resources:
 - ECS execution IAM role and policy attachment
-- RDS PostgreSQL 14.9 instance with monitoring role
+- RDS PostgreSQL 17.5 instance with monitoring role
 - ElastiCache Redis replication group
 - Route53 DNS record
 - DB parameter group and subnet group
+
+**Note**: Actual resource creation is conditional based on `use_localstack` variable. When `true`, most ECS resources are skipped for local development.
 
 ## 🔍 Debugging Tips
 
